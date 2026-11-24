@@ -1,0 +1,1 @@
+ C:\\Users\\fajar.MONSPEET\\Downloads\\solvexa_mobile\\frontend_flutter\\.dart_tool\\flutter_build\\879a4701d823cc6297d2ac129d1fdc18\\native_assets.json: 

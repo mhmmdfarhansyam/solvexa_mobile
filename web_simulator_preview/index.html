@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solvexa Mobile – Universitas Trilogi (Interactive Fullstack Simulator)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="workspace-wrapper">
+    <!-- Panel Kontrol Simulasi & Role Switcher di Sisi Kiri (Desktop) -->
+    <aside class="control-sidebar">
+      <div class="brand-badge">
+        <div class="brand-icon">🔧</div>
+        <div>
+          <div class="brand-sub">UNIVERSITAS TRILOGI</div>
+          <div class="brand-title">Solvexa Control Center</div>
+        </div>
+      </div>
+      <p class="sidebar-desc">
+        Simulator interaktif 100% sesuai PRD &amp; 9 Referensi UI. Terhubung dengan Local SQLite State &amp; Role Switcher.
+      </p>
+
+      <div class="control-group">
+        <div class="control-label">1. Peran Pengguna (Role Switcher)</div>
+        <div class="role-switch-row">
+          <button id="btnRoleSivitas" class="role-btn active" onclick="setRole('sivitas')">
+            🎓 Sivitas (Pelapor)
+          </button>
+          <button id="btnRoleTeknisi" class="role-btn" onclick="setRole('teknisi')">
+            🛠️ Teknisi (Demo)
+          </button>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="control-label">2. Lompat Cepat ke 9 Layar Referensi PRD</div>
+        <div class="screen-nav-grid">
+          <button class="screen-jump-btn" onclick="jumpToScreen('home_empty')">1. Beranda - Kosong</button>
+          <button class="screen-jump-btn" onclick="jumpToScreen('home_active')">2. Beranda - Laporan Aktif</button>
+          <button class="screen-jump-btn" onclick="jumpToScreen('scan_qr')">3. Scan QR Kamera</button>
+          <button class="screen-jump-btn" onclick="jumpToScreen('form_default')">4. Form Laporan - Default</button>
+          <button class="screen-jump-btn" onclick="jumpToScreen('form_dropdown')">5. Form - Dropdown Terbuka</button>
+          <button class="screen-jump-btn" onclick="jumpToScreen('ticket_success')">6. Laporan Berhasil Terkirim</button>
+          <button class="screen-jump-btn" onclick="jumpToScreen('ticket_timeline')">7. Status Laporan - Timeline</button>
+          <button class="screen-jump-btn" onclick="jumpToScreen('notif_list')">8. Notifikasi - Ada Pesan</button>
+          <button class="screen-jump-btn" onclick="jumpToScreen('notif_empty')">9. Notifikasi - Kosong</button>
+        </div>
+      </div>
+
+      <div class="control-group" id="teknisiQuickBox">
+        <div class="control-label">3. Simulasi Aksi Teknisi Operasional</div>
+        <div class="tech-actions">
+          <button class="tech-btn" onclick="updateTicketStatus('Dilaporkan')">Set: Dilaporkan</button>
+          <button class="tech-btn" onclick="updateTicketStatus('Diproses Teknisi')">Set: Diproses Teknisi</button>
+          <button class="tech-btn" onclick="updateTicketStatus('Selesai')">Set: Selesai</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Frame Ponsel Solvexa Mobile -->
+    <main class="phone-stage">
+      <div class="phone-frame">
+        <!-- Top App Bar Dinamis -->
+        <header id="appHeader" class="top-app-bar"></header>
+
+        <!-- Konten Layar Utama -->
+        <div id="screenContainer" class="screen-content"></div>
+
+        <!-- Bottom Navigation Bar (3 Menu Tetap: Home, Scan QR FAB Kuning, Updates) -->
+        <nav id="bottomNav" class="bottom-nav-bar">
+          <button class="nav-item active" id="navHome" onclick="navigateTab('home')">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-text">Home</span>
+          </button>
+          <div class="nav-fab-wrapper">
+            <button class="nav-fab" onclick="navigateTab('scan')">
+              <span class="qr-glyph">⛶</span>
+            </button>
+            <span class="nav-fab-label" id="navScanLabel">Scan QR</span>
+          </div>
+          <button class="nav-item" id="navUpdates" onclick="navigateTab('updates')">
+            <span class="nav-icon-wrap">
+              <span class="nav-icon">🔔</span>
+              <span id="navBadge" class="nav-badge">2</span>
+            </span>
+            <span class="nav-text">Updates</span>
+          </button>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal Universal (Input Manual QR / Database Aset / Simulasi Teknisi) -->
+  <div id="modalOverlay" class="modal-overlay hidden" onclick="closeModal(event)">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
